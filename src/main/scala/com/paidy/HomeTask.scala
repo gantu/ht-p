@@ -32,16 +32,16 @@ object HomeTask extends App {
     val formatterDateTime = DateTimeFormatter.ofPattern("dd-MM-yyyy")
     val fromDate = LocalDate.parse(startDate, formatterDateTime)
     val toDate = LocalDate.parse(endDate, formatterDateTime)
-    countSundays(fromDate, toDate, 0)
+    countDays(fromDate, toDate, "SUNDAY", 0)
   }
 
   @tailrec
-  def countSundays(start: LocalDate, end: LocalDate, sundays: Int): Int = {
-    if (start.isEqual(end.plusDays(1))) sundays
+  def countDays(start: LocalDate, end: LocalDate, day:String, days: Int): Int = {
+    if (start.isEqual(end.plusDays(1))) days
     else {
-      if (start.getDayOfWeek.toString.equals("SUNDAY"))
-        countSundays(start.plusDays(1), end, sundays + 1)
-      else countSundays(start.plusDays(1), end, sundays)
+      if (start.getDayOfWeek.toString.equals(day))
+        countDays(start.plusDays(1), end, day, days + 1)
+      else countDays(start.plusDays(1), end, day, days)
     }
   }
 
